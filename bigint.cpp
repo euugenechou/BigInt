@@ -247,6 +247,34 @@ size_t BigInt::bitwidth() const {
   return mpz_sizeinbase(v.get_mpz_t(), 2);
 }
 
+std::vector<uint8_t> bigint_to_bytes(const BigInt& n) {
+  size_t nbytes = (mpz_sizeinbase(n.v.get_mpz_t(), 2) + 7) / 8;
+  std::vector<uint8_t> v(nbytes);
+  mpz_export(v.data(), &nbytes, 1, 1, 0, 0, n.v.get_mpz_t());
+  v.resize(nbytes);
+  return v;
+}
+
+BigInt bigint_from_bytes(const std::vector<uint8_t>& v) {
+  BigInt temp;
+  mpz_import(temp.v.get_mpz_t(), v.size(), 1, 1, 0, 0, v.data());
+  return temp;
+}
+
+std::string bigint_to_string(const BigInt& n) {
+  char *s_ = new char[mpz_sizeinbase(n.v.get_mpz_t(), 16) / 2 + 2]();
+  mpz_export(s_, NULL, 1, sizeof(char), 0, 0, n.v.get_mpz_t());
+  std::string s = std::string(s_);
+  delete[] s_;
+  return s;
+}
+
+BigInt bigint_from_string(const std::string& s) {
+  BigInt temp;
+  mpz_import(temp.v.get_mpz_t(), s.size(), 1, sizeof(char), 0, 0, s.data());
+  return temp;
+}
+
 std::ostream& operator<<(std::ostream& os, const BigInt& n) {
   os << n.v;
   return os;

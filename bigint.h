@@ -1,14 +1,15 @@
 #ifndef __BIGINT_H__
 #define __BIGINT_H__
 
+#include <cinttypes>
 #include <iostream>
+#include <vector>
 #include <gmpxx.h>
 
 class BigInt {
-  private:
+  public:
     mpz_class v;
 
-  public:
     BigInt() : v(mpz_class(0)) {}
 
     template<class T>
@@ -96,10 +97,6 @@ class BigInt {
     int getbit(const BigInt& i) const;
 
     size_t bitwidth() const;
-
-    friend std::ostream& operator<<(std::ostream& os, const BigInt& n);
-
-    friend std::istream& operator>>(std::istream& is, BigInt& n);
 };
 
 template<class T>
@@ -161,5 +158,17 @@ template<class T>
 inline BigInt operator>>(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) >>= rhs;
 }
+
+std::vector<uint8_t> bigint_to_bytes(const BigInt& n);
+
+BigInt bigint_from_bytes(const std::vector<uint8_t>& v);
+
+std::string bigint_to_string(const BigInt& n);
+
+BigInt bigint_from_string(const std::string& s);
+
+std::ostream& operator<<(std::ostream& os, const BigInt& n);
+
+std::istream& operator>>(std::istream& is, BigInt& n);
 
 #endif
