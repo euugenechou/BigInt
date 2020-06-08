@@ -103,62 +103,62 @@ class BigInt {
 };
 
 template<class T>
-inline bool operator==(T& lhs, const BigInt& rhs) {
+inline bool operator==(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) == rhs;
 }
 
 template<class T>
-inline bool operator!=(T& lhs, const BigInt& rhs) {
+inline bool operator!=(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) != rhs;
 }
 
 template<class T>
-inline BigInt operator+(T& lhs, const BigInt& rhs) {
+inline BigInt operator+(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) += rhs;
 }
 
 template<class T>
-inline BigInt operator-(T& lhs, const BigInt& rhs) {
+inline BigInt operator-(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) -= rhs;
 }
 
 template<class T>
-inline BigInt operator*(T& lhs, const BigInt& rhs) {
+inline BigInt operator*(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) *= rhs;
 }
 
 template<class T>
-inline BigInt operator/(T& lhs, const BigInt& rhs) {
+inline BigInt operator/(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) /= rhs;
 }
 
 template<class T>
-inline BigInt operator%(T& lhs, const BigInt& rhs) {
+inline BigInt operator%(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) %= rhs;
 }
 
 template<class T>
-inline BigInt operator&(T& lhs, const BigInt& rhs) {
+inline BigInt operator&(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) &= rhs;
 }
 
 template<class T>
-inline BigInt operator|(T& lhs, const BigInt& rhs) {
+inline BigInt operator|(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) |= rhs;
 }
 
 template<class T>
-inline BigInt operator^(T& lhs, const BigInt& rhs) {
+inline BigInt operator^(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) ^= rhs;
 }
 
 template<class T>
-inline BigInt operator<<(T& lhs, const BigInt& rhs) {
+inline BigInt operator<<(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) <<= rhs;
 }
 
 template<class T>
-inline BigInt operator>>(T& lhs, const BigInt& rhs) {
+inline BigInt operator>>(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) >>= rhs;
 }
 
