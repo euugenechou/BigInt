@@ -97,6 +97,8 @@ class BigInt {
     int getbit(const BigInt& i) const;
 
     size_t bitwidth() const;
+
+    std::string str_in_base(int base) const;
 };
 
 template<class T>

@@ -247,6 +247,14 @@ size_t BigInt::bitwidth() const {
   return mpz_sizeinbase(v.get_mpz_t(), 2);
 }
 
+std::string BigInt::str_in_base(int base) const {
+  char *s_ = new char[mpz_sizeinbase(v.get_mpz_t(), base) + 2]();
+  mpz_get_str(s_, base, v.get_mpz_t());
+  std::string s = std::string(s_);
+  delete[] s_;
+  return s;
+}
+
 std::vector<uint8_t> bigint_to_bytes(const BigInt& n) {
   size_t nbytes = (mpz_sizeinbase(n.v.get_mpz_t(), 2) + 7) / 8;
   std::vector<uint8_t> v(nbytes);
