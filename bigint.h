@@ -1,7 +1,6 @@
 #ifndef __BIGINT_H__
 #define __BIGINT_H__
 
-#include <string>
 #include <iostream>
 #include <gmpxx.h>
 
