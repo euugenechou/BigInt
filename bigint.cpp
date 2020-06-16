@@ -255,7 +255,7 @@ std::string BigInt::str_in_base(int base) const {
   return s;
 }
 
-std::vector<uint8_t> bigint_to_bytes(const BigInt& n) {
+std::vector<uint8_t> BigInt::to_bytes(const BigInt& n) {
   size_t nbytes = (mpz_sizeinbase(n.v.get_mpz_t(), 2) + 7) / 8;
   std::vector<uint8_t> v(nbytes);
   mpz_export(v.data(), &nbytes, 1, 1, 0, 0, n.v.get_mpz_t());
@@ -263,13 +263,13 @@ std::vector<uint8_t> bigint_to_bytes(const BigInt& n) {
   return v;
 }
 
-BigInt bigint_from_bytes(const std::vector<uint8_t>& v) {
+BigInt BigInt::from_bytes(const std::vector<uint8_t>& vec) {
   BigInt temp;
-  mpz_import(temp.v.get_mpz_t(), v.size(), 1, 1, 0, 0, v.data());
+  mpz_import(temp.v.get_mpz_t(), vec.size(), 1, 1, 0, 0, vec.data());
   return temp;
 }
 
-std::string bigint_to_string(const BigInt& n) {
+std::string BigInt::to_string(const BigInt& n) {
   char *s_ = new char[mpz_sizeinbase(n.v.get_mpz_t(), 16) / 2 + 2]();
   mpz_export(s_, NULL, 1, sizeof(char), 0, 0, n.v.get_mpz_t());
   std::string s = std::string(s_);
@@ -277,9 +277,9 @@ std::string bigint_to_string(const BigInt& n) {
   return s;
 }
 
-BigInt bigint_from_string(const std::string& s) {
+BigInt BigInt::from_string(const std::string& str) {
   BigInt temp;
-  mpz_import(temp.v.get_mpz_t(), s.size(), 1, sizeof(char), 0, 0, s.data());
+  mpz_import(temp.v.get_mpz_t(), str.size(), 1, sizeof(char), 0, 0, str.data());
   return temp;
 }
 

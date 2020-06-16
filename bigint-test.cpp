@@ -1,16 +1,17 @@
 #include "bigint.h"
-#include <iostream>
 
 int main(void) {
-  std::cout << std::boolalpha;
-
-  BigInt i = 5;
-  BigInt j = 13;
-
+  BigInt i = "12419285192019238102980198";
   std::cout << "i = " << i << std::endl;
+
+  std::vector<uint8_t> v = BigInt::to_bytes(i);
+
+  BigInt j = BigInt::from_bytes(v);
   std::cout << "j = " << j << std::endl;
-  std::cout << "i.invm(j) = " << i.invm(j) << std::endl;
-  std::cout << "i.sqrtm(11) = " << i.sqrtm(11) << std::endl;
+
+  for (int i = 2; i < 16; i += 1) {
+    std::cout << j.str_in_base(i) << std::endl;
+  }
 
   return 0;
 }

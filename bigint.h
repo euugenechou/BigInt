@@ -2,14 +2,15 @@
 #define __BIGINT_H__
 
 #include <cstdint>
+#include <gmpxx.h>
 #include <iostream>
 #include <vector>
-#include <gmpxx.h>
 
 class BigInt {
-  public:
+  private:
     mpz_class v;
 
+  public:
     BigInt() : v(mpz_class(0)) {}
 
     template<class T>
@@ -99,7 +100,20 @@ class BigInt {
     size_t bitwidth() const;
 
     std::string str_in_base(int base) const;
+
+    static BigInt from_bytes(const std::vector<uint8_t>& vec);
+
+    static std::vector<uint8_t> to_bytes(const BigInt& n);
+
+    static BigInt from_string(const std::string& str);
+
+    static std::string to_string(const BigInt& n);
+
+    friend std::ostream& operator<<(std::ostream& os, const BigInt& n);
+
+    friend std::istream& operator>>(std::istream& is, BigInt& n);
 };
+
 
 template<class T>
 inline bool operator==(const T& lhs, const BigInt& rhs) {
@@ -160,17 +174,5 @@ template<class T>
 inline BigInt operator>>(const T& lhs, const BigInt& rhs) {
   return BigInt(lhs) >>= rhs;
 }
-
-std::vector<uint8_t> bigint_to_bytes(const BigInt& n);
-
-BigInt bigint_from_bytes(const std::vector<uint8_t>& v);
-
-std::string bigint_to_string(const BigInt& n);
-
-BigInt bigint_from_string(const std::string& s);
-
-std::ostream& operator<<(std::ostream& os, const BigInt& n);
-
-std::istream& operator>>(std::istream& is, BigInt& n);
 
 #endif
